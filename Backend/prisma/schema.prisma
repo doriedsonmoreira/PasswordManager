@@ -19,7 +19,7 @@ model User {
   email String @unique @db.VarChar(255)
   password  String @db.VarChar(255)
   createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   credentials Credentials[]
 
@@ -34,11 +34,11 @@ model Credentials{
   userId String @db.Uuid
   appId String @db.Uuid
   createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
 
-  user User @relation(fields: [userId], references: [id])
-  app App @relation(fields: [appId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  app App @relation(fields: [appId], references: [id], onDelete: Restrict)
 
   @@map("credentials")
 }
@@ -46,9 +46,9 @@ model Credentials{
 model App{
   id  String @id @default(uuid()) @db.Uuid
   name String @db.VarChar(255)
-  imageUrl String @map("image_url")
+  imageUrl String? @map("image_url")
   createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   credentials Credentials[]
 
