@@ -14,7 +14,6 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
-app.use(errorMiddleware);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Password Manager Backend is running!");
@@ -23,3 +22,5 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+app.use(errorMiddleware);

@@ -4,7 +4,7 @@ import { UserRepository } from "../repositories/UserRepository";
 import jwt from "jsonwebtoken";
 
 type JwtPayload = {
-  id: number;
+  id: string;
 };
 
 export const authMiddleware = async (

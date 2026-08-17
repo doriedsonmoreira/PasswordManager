@@ -2,9 +2,6 @@ node_modules
 .env
 dist/
 /src/generated/prisma
-POSTGRES_USER=admin
-POSTGRES_PASSWORD=senha123
-POSTGRES_DB=password_manager
 .agents/
 .claude/
 .windsurf/
