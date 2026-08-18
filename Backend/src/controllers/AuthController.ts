@@ -14,6 +14,10 @@ export class AuthController {
   async register(req: Request, res: Response) {
     const { name, email, password } = req.body;
 
+    if (!name || !email || !password) {
+      throw new BadRequestError("Please fill all the fields");
+    }
+
     const userExist = await this.userRepository.findByEmail(email);
 
     if (userExist) {
@@ -35,6 +39,10 @@ export class AuthController {
 
   async login(req: Request, res: Response) {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      throw new BadRequestError("Please fill all the fields");
+    }
 
     const user = await this.userRepository.findByEmail(email);
 
