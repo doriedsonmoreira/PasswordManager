@@ -1,7 +1,12 @@
 import prisma from "../lib/prisma";
 
 export class UserRepository {
-  async register(data: { name: string; email: string; password: string }) {
+  async register(data: {
+    name: string;
+    email: string;
+    password: string;
+    salt: string;
+  }) {
     return await prisma.user.create({ data });
   }
 

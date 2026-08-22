@@ -3,6 +3,7 @@ import { BadRequestError } from "../helpers/api-errors";
 import { UserRepository } from "../repositories/UserRepository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 export class AuthController {
   private userRepository: UserRepository;
@@ -13,6 +14,8 @@ export class AuthController {
 
   async register(req: Request, res: Response) {
     const { name, email, password } = req.body;
+
+    const salt = crypto.randomBytes(16).toString("hex");
 
     if (!name || !email || !password) {
       throw new BadRequestError("Please fill all the fields");
@@ -30,6 +33,7 @@ export class AuthController {
       name,
       email,
       password: hashedPassword,
+      salt: salt,
     });
 
     const { password: _, ...user } = newUser;
